@@ -20,8 +20,7 @@ app.use("/api/students", require("./routes/studentRoutes"));
 
 // Home Route
 app.get("/", (req, res) => {
-  res.send("Student Management API is Running");
-});
+res.send("RollCall API is Running");});
 
 // Start Server
 const PORT = process.env.PORT || 5000;

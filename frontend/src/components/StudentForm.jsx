@@ -14,6 +14,7 @@ function StudentForm() {
     email: ""
   });
   const [error, setError] = useState("");
+  const [saving, setSaving] = useState(false);
 
   // Update mode me purana data form me bharo
   useEffect(() => {
@@ -37,6 +38,7 @@ function StudentForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSaving(true);
     try {
       if (id) {
         await axios.put(`${API_URL}/${id}`, student);
@@ -46,63 +48,88 @@ function StudentForm() {
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || err.message);
+      setSaving(false);
     }
   };
 
   return (
-    <div className="col-md-6">
-      <h1>{id ? "Update Student" : "Add Student"}</h1>
-
-      {error && <div className="alert alert-danger">{error}</div>}
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            className="form-control"
-            value={student.firstName}
-            onChange={handleChange}
-            required
-          />
+    <div className="row justify-content-center">
+      <div className="col-lg-6 col-md-8">
+        <div className="mb-4">
+          <h2 className="page-title">
+            {id ? "Update Student" : "Add Student"}
+          </h2>
+          <p className="page-subtitle">
+            {id
+              ? "Edit the student details below"
+              : "Fill in the details to add a new student"}
+          </p>
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            className="form-control"
-            value={student.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <div className="card-box p-4">
+          {error && <div className="alert alert-danger">{error}</div>}
 
-        <div className="mb-3">
-          <label className="form-label">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="form-control"
-            value={student.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <label className="form-label">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  className="form-control"
+                  placeholder="John "
+                  value={student.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-        <button type="submit" className="btn btn-primary me-2">
-          {id ? "Update" : "Save"}
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={() => navigate("/")}
-        >
-          Cancel
-        </button>
-      </form>
+              <div className="col-md-6 mb-3">
+                <label className="form-label">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  className="form-control"
+                  placeholder="Smith"
+                  value={student.lastName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="form-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="name@example.com"
+                value={student.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="d-flex gap-2">
+              <button
+                type="submit"
+                className="btn btn-gradient"
+                disabled={saving}
+              >
+                {saving ? "Saving..." : id ? "Update Student" : "Save Student"}
+              </button>
+              <button
+                type="button"
+                className="btn btn-soft-primary"
+                onClick={() => navigate("/")}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
