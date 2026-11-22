@@ -17,10 +17,11 @@ connectDB();
 
 // Student Routes
 app.use("/api/students", require("./routes/studentRoutes"));
-
+app.use("/api/auth", require("./routes/authRoute"));
 // Home Route
 app.get("/", (req, res) => {
-res.send("RollCall API is Running");});
+  res.send("RollCall API is Running");
+});
 
 // Start Server
 const PORT = process.env.PORT || 5000;
