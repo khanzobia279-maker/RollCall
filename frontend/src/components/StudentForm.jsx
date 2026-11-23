@@ -38,6 +38,7 @@ function StudentForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     setSaving(true);
     try {
       if (id) {
@@ -53,43 +54,58 @@ function StudentForm() {
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-lg-6 col-md-8">
-        <div className="mb-4">
-          <h2 className="page-title">
-            {id ? "Update Student" : "Add Student"}
-          </h2>
-          <p className="page-subtitle">
+    <div className="dash-form-card">
+      {/* Left panel */}
+      <div className="dash-form-left">
+        <span className="dash-blob b1"></span>
+        <span className="dash-blob b2"></span>
+        <span className="dash-blob b3"></span>
+        <span className="dash-blob b4"></span>
+
+        <button
+          type="button"
+          className="dash-back dash-z"
+          onClick={() => navigate("/")}
+        >
+          ‹ Back to list
+        </button>
+
+        <div className="dash-z">
+          <h1>{id ? "Update Student" : "Add Student"}</h1>
+          <p>
             {id
-              ? "Edit the student details below"
+              ? "Edit the student details"
               : "Fill in the details to add a new student"}
           </p>
         </div>
+      </div>
 
-        <div className="card-box p-4">
-          {error && <div className="alert alert-danger">{error}</div>}
+      {/* Right panel */}
+      <div className="dash-form-right">
+        {error && <div className="alert alert-danger py-2">{error}</div>}
 
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <label className="form-label">First Name</label>
+        <form onSubmit={handleSubmit}>
+          <div className="dash-form-row">
+            <div className="dash-field-wrap">
+              <label className="dash-label">First Name</label>
+              <div className="dash-field">
                 <input
                   type="text"
                   name="firstName"
-                  className="form-control"
-                  placeholder="John "
+                  placeholder="John"
                   value={student.firstName}
                   onChange={handleChange}
                   required
                 />
               </div>
+            </div>
 
-              <div className="col-md-6 mb-3">
-                <label className="form-label">Last Name</label>
+            <div className="dash-field-wrap">
+              <label className="dash-label">Last Name</label>
+              <div className="dash-field">
                 <input
                   type="text"
                   name="lastName"
-                  className="form-control"
                   placeholder="Smith"
                   value={student.lastName}
                   onChange={handleChange}
@@ -97,38 +113,35 @@ function StudentForm() {
                 />
               </div>
             </div>
+          </div>
 
-            <div className="mb-4">
-              <label className="form-label">Email</label>
+          <div className="dash-field-wrap">
+            <label className="dash-label">Email</label>
+            <div className="dash-field">
               <input
                 type="email"
                 name="email"
-                className="form-control"
                 placeholder="name@example.com"
                 value={student.email}
                 onChange={handleChange}
                 required
               />
             </div>
+          </div>
 
-            <div className="d-flex gap-2">
-              <button
-                type="submit"
-                className="btn btn-gradient"
-                disabled={saving}
-              >
-                {saving ? "Saving..." : id ? "Update Student" : "Save Student"}
-              </button>
-              <button
-                type="button"
-                className="btn btn-soft-primary"
-                onClick={() => navigate("/")}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="dash-form-buttons">
+            <button type="submit" className="dash-btn" disabled={saving}>
+              {saving ? "Saving..." : id ? "Update Student" : "Save Student"}
+            </button>
+            <button
+              type="button"
+              className="dash-btn dash-btn-ghost"
+              onClick={() => navigate("/")}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

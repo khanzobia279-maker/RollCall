@@ -1,0 +1,518 @@
+:root {
+  --dash-dark: linear-gradient(160deg, #1e1b6e 0%, #4c1d95 50%, #86198f 100%);
+}
+
+@keyframes dashFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes dashFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes dashMorph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+
+/* ================= Blobs ================= */
+.dash-blob {
+  position: absolute;
+  pointer-events: none;
+}
+.dash-blob.b1 {
+  width: 100px; height: 100px;
+  top: -30px; right: 14%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22d3ee, #6366f1);
+  animation: dashFloat 6s ease-in-out infinite;
+}
+.dash-blob.b2 {
+  width: 64px; height: 64px;
+  left: 44%; bottom: -22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d946ef, #7c3aed);
+  animation: dashFloat 7s ease-in-out infinite;
+}
+.dash-blob.b3 {
+  width: 320px; height: 320px;
+  left: -110px; bottom: -150px;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  background: linear-gradient(135deg, #3b82f6, #a21caf);
+  opacity: 0.55;
+  animation: dashMorph 10s ease-in-out infinite;
+}
+.dash-blob.b4 {
+  width: 24px; height: 24px;
+  right: 6%; bottom: 16%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c026d3, #7c3aed);
+}
+
+/* ================= Navbar ================= */
+.dash-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: var(--dash-dark);
+  padding: 12px 0;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.35);
+}
+.dash-nav::before {
+  content: "";
+  position: absolute;
+  width: 220px; height: 220px;
+  left: -80px; top: -140px;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  background: linear-gradient(135deg, #3b82f6, #a21caf);
+  opacity: 0.5;
+  animation: dashMorph 10s ease-in-out infinite;
+  pointer-events: none;
+}
+.dash-nav::after {
+  content: "";
+  position: absolute;
+  width: 56px; height: 56px;
+  right: 22%; top: -30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22d3ee, #6366f1);
+  animation: dashFloat 6s ease-in-out infinite;
+  pointer-events: none;
+}
+.dash-nav-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dash-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-family: "Poppins", "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  transition: opacity 0.2s;
+}
+.dash-brand:hover { color: #fff; opacity: 0.9; }
+.dash-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dash-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px 5px 5px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.dash-user-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #d946ef, #7c3aed);
+}
+.dash-icon-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 1.05rem;
+  transition: transform 0.2s, background 0.2s;
+}
+.dash-icon-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.26);
+}
+.dash-logout {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-radius: 12px;
+  padding: 9px 18px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: transform 0.2s, background 0.2s;
+}
+.dash-logout:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.dash-page {
+  padding-top: 28px;
+}
+
+/* ================= Hero ================= */
+.dash-hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: var(--dash-dark);
+  border-radius: 22px;
+  padding: 34px 38px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  box-shadow: 0 24px 60px rgba(79, 70, 229, 0.28);
+  animation: dashFadeUp 0.5s ease both;
+}
+.dash-z { position: relative; z-index: 1; }
+.dash-hero h1 {
+  font-family: "Poppins", "Inter", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0 0 6px;
+}
+.dash-hero p {
+  margin: 0;
+  opacity: 0.85;
+}
+.dash-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.dash-count {
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* ================= Buttons ================= */
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 24px;
+  background: var(--grad);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.35);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.dash-btn:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(124, 58, 237, 0.5);
+}
+.dash-btn:active { transform: scale(0.97); }
+.dash-btn:disabled { opacity: 0.7; transform: none; }
+
+.dash-btn-light {
+  background: #fff;
+  color: #4c1d95;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+}
+.dash-btn-light:hover {
+  color: #4c1d95;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+}
+
+.dash-btn-ghost {
+  background: var(--soft-primary-bg);
+  color: var(--soft-primary-text);
+  box-shadow: none;
+}
+.dash-btn-ghost:hover {
+  background: var(--soft-primary-hover);
+  color: var(--soft-primary-text);
+  box-shadow: none;
+}
+
+.dash-btn-danger {
+  background: var(--soft-danger-bg);
+  color: var(--soft-danger-text);
+  box-shadow: none;
+}
+.dash-btn-danger:hover {
+  background: var(--soft-danger-hover);
+  color: var(--soft-danger-text);
+  box-shadow: none;
+}
+
+.dash-btn-sm {
+  padding: 8px 14px;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  border-radius: 10px;
+}
+
+/* ================= Card ================= */
+.dash-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(79, 70, 229, 0.14);
+  overflow: hidden;
+  animation: dashFadeUp 0.5s ease both;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+/* ================= Underline fields ================= */
+.dash-field {
+  position: relative;
+  border-bottom: 2px solid var(--border);
+}
+.dash-field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.dash-field:focus-within::after { transform: scaleX(1); }
+.dash-field input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  padding: 10px 0;
+  font-size: 0.95rem;
+}
+.dash-field input::placeholder { color: var(--muted); }
+.dash-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  transition: background-color 9999s;
+}
+.dash-label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ================= Toolbar ================= */
+.dash-toolbar {
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--border);
+}
+.dash-search {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.dash-search .dash-field {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+/* ================= Table ================= */
+.dash-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  color: var(--text);
+}
+.dash-table thead th {
+  padding: 16px 26px;
+  background: var(--thead-bg);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.dash-table tbody td {
+  padding: 16px 26px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  transition: background 0.2s;
+}
+.dash-table tbody tr {
+  animation: dashFadeUp 0.4s ease both;
+}
+.dash-table tbody tr:last-child td { border-bottom: none; }
+.dash-table tbody tr:hover td { background: var(--row-hover); }
+.dash-table .dash-muted { color: var(--muted); }
+
+.dash-avatar {
+  width: 42px; height: 42px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--grad);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 6px 14px rgba(124, 58, 237, 0.3);
+}
+.dash-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.dash-empty {
+  text-align: center;
+  padding: 56px 16px;
+  color: var(--muted);
+}
+.dash-empty .emoji {
+  font-size: 2.8rem;
+  animation: dashFloat 2.5s ease-in-out infinite;
+}
+
+/* ================= Form page ================= */
+.dash-form-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 900px;
+  min-height: 480px;
+  margin: 0 auto;
+  background: var(--card);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(79, 70, 229, 0.28);
+  animation: dashFadeUp 0.5s ease both;
+}
+.dash-form-left {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--dash-dark);
+}
+.dash-form-left h1 {
+  font-family: "Poppins", "Inter", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0 0 6px;
+}
+.dash-form-left p { margin: 0; opacity: 0.85; }
+.dash-back {
+  align-self: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+.dash-back:hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateX(-2px);
+}
+.dash-form-right {
+  padding: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--card);
+  color: var(--text);
+}
+.dash-form-right .dash-field-wrap { margin-bottom: 24px; }
+.dash-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.dash-form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+/* ================= Mobile ================= */
+@media (max-width: 767.98px) {
+  .dash-hero { padding: 26px 22px; }
+  .dash-hero h1 { font-size: 1.6rem; }
+  .dash-toolbar { padding: 18px; }
+
+  .dash-table thead { display: none; }
+  .dash-table,
+  .dash-table tbody,
+  .dash-table tr,
+  .dash-table td { display: block; width: 100%; }
+
+  .dash-table tbody tr {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dash-table tbody tr:last-child { border-bottom: none; }
+  .dash-table tbody td { padding: 6px 0; border: none; }
+  .dash-table tbody tr:hover td { background: transparent; }
+  .dash-table tbody td[data-label] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .dash-table tbody td[data-label]::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+  }
+  .dash-actions .dash-btn { flex: 1; }
+
+  .dash-form-card { grid-template-columns: 1fr; min-height: 0; }
+  .dash-form-left { min-height: 200px; padding: 24px; }
+  .dash-form-left h1 { font-size: 1.6rem; }
+  .dash-form-right { padding: 32px 24px; }
+  .dash-form-row { grid-template-columns: 1fr; gap: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-nav::before,
+  .dash-nav::after,
+  .dash-blob,
+  .dash-empty .emoji { animation: none !important; }
+}

@@ -60,52 +60,61 @@ function StudentList() {
 
   return (
     <div>
-      {/* Heading */}
-      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-        <div>
-          <h2 className="page-title">Student List</h2>
-          <p className="page-subtitle">Manage all your students in one place</p>
+      {/* Hero banner */}
+      <div className="dash-hero">
+        <span className="dash-blob b1"></span>
+        <span className="dash-blob b2"></span>
+        <span className="dash-blob b3"></span>
+        <span className="dash-blob b4"></span>
+
+        <div className="dash-z">
+          <h1>Student List</h1>
+          <p>Manage all your students in one place</p>
         </div>
-        <span className="count-badge">{students.length} Students</span>
-      </div>
 
-      {/* Toolbar */}
-      <div className="card-box p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <form className="d-flex gap-2" onSubmit={handleSearch}>
-          <input
-            type="text"
-            className="form-control"
-            style={{ minWidth: "260px" }}
-            placeholder="Search by name or email..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button type="submit" className="btn btn-gradient">
-            Search
+        <div className="dash-hero-actions dash-z">
+          <span className="dash-count">{students.length} Students</span>
+          <button
+            className="dash-btn dash-btn-light"
+            onClick={() => navigate("/add")}
+          >
+            + Add Student
           </button>
-          {keyword && (
-            <button
-              type="button"
-              className="btn btn-soft-primary"
-              onClick={clearSearch}
-            >
-              Clear
-            </button>
-          )}
-        </form>
-
-        <button className="btn btn-gradient" onClick={() => navigate("/add")}>
-          + Add Student
-        </button>
+        </div>
       </div>
 
       {/* Error */}
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {/* Table */}
-      <div className="card-box overflow-hidden">
+      {/* Toolbar + Table */}
+      <div className="dash-card">
+        <div className="dash-toolbar">
+          <form className="dash-search" onSubmit={handleSearch}>
+            <div className="dash-field">
+              <input
+                type="text"
+                placeholder="Search by name or email..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="dash-btn">
+              Search
+            </button>
+            {keyword && (
+              <button
+                type="button"
+                className="dash-btn dash-btn-ghost"
+                onClick={clearSearch}
+              >
+                Clear
+              </button>
+            )}
+          </form>
+        </div>
+
         <div className="table-responsive">
-          <table className="table table-modern">
+          <table className="dash-table">
             <thead>
               <tr>
                 <th>Student</th>
@@ -119,13 +128,13 @@ function StudentList() {
               {loading ? (
                 <tr>
                   <td colSpan="5">
-                    <div className="empty-state">Loading students...</div>
+                    <div className="dash-empty">Loading students...</div>
                   </td>
                 </tr>
               ) : filteredStudents.length === 0 ? (
                 <tr>
                   <td colSpan="5">
-                    <div className="empty-state">
+                    <div className="dash-empty">
                       <div className="emoji">🔍</div>
                       <div className="fw-semibold mt-2">No students found</div>
                       <div>Try a different search or add a new student.</div>
@@ -136,24 +145,30 @@ function StudentList() {
                 filteredStudents.map((student) => (
                   <tr key={student._id}>
                     <td>
-                      <span className="avatar">{getInitials(student)}</span>
+                      <span className="dash-avatar">{getInitials(student)}</span>
                     </td>
-                    <td className="fw-medium">{student.firstName}</td>
-                    <td>{student.lastName}</td>
-                    <td className="text-muted">{student.email}</td>
-                    <td className="text-end">
-                      <button
-                        className="btn btn-soft-primary btn-sm me-2"
-                        onClick={() => navigate(`/edit/${student._id}`)}
-                      >
-                        Update
-                      </button>
-                      <button
-                        className="btn btn-soft-danger btn-sm"
-                        onClick={() => deleteStudent(student._id)}
-                      >
-                        Delete
-                      </button>
+                    <td className="fw-medium" data-label="First Name">
+                      {student.firstName}
+                    </td>
+                    <td data-label="Last Name">{student.lastName}</td>
+                    <td className="dash-muted" data-label="Email">
+                      {student.email}
+                    </td>
+                    <td>
+                      <div className="dash-actions">
+                        <button
+                          className="dash-btn dash-btn-ghost dash-btn-sm"
+                          onClick={() => navigate(`/edit/${student._id}`)}
+                        >
+                          Update
+                        </button>
+                        <button
+                          className="dash-btn dash-btn-danger dash-btn-sm"
+                          onClick={() => deleteStudent(student._id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

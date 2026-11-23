@@ -5,7 +5,7 @@ import StudentList from "./components/StudentList";
 import StudentForm from "./components/StudentForm";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-
+import "./components/Dashboard.css";
 // Page load par saved token axios me laga do
 const savedToken = localStorage.getItem("token");
 if (savedToken) {
@@ -118,36 +118,49 @@ function App() {
         element={
           isLoggedIn ? (
             <>
-              <nav className="navbar app-navbar mb-4">
-                <div className="container">
-                  <Link to="/" className="navbar-brand brand">
-                    📋 RollCall
+              <nav className="dash-nav">
+                <div className="container dash-nav-inner">
+                  <Link to="/" className="dash-brand">
+                    <svg width="38" height="38" viewBox="0 0 100 100" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="navLogoGrad" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0" stopColor="#2563eb" />
+                          <stop offset="0.5" stopColor="#9333ea" />
+                          <stop offset="1" stopColor="#ec4899" />
+                        </linearGradient>
+                      </defs>
+                      <rect width="100" height="100" rx="24" fill="url(#navLogoGrad)" />
+                      <rect x="28" y="28" width="38" height="50" rx="6" fill="none" stroke="#fff" strokeWidth="6" />
+                      <rect x="38" y="22" width="18" height="12" rx="3" fill="#fff" />
+                      <path d="M50 62 L58 70 L76 48" fill="none" stroke="#fff" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span>RollCall</span>
                   </Link>
 
-                  <div className="d-flex align-items-center gap-2">
-                    <span className="theme-toggle d-none d-md-inline">
-                      👤 {user?.name}
+                  <div className="dash-nav-right">
+                    <span className="dash-user d-none d-md-inline-flex">
+                      <span className="dash-user-dot">
+                        {user?.name?.[0]?.toUpperCase() || "U"}
+                      </span>
+                      {user?.name}
                     </span>
 
                     <button
-                      className="theme-toggle"
+                      className="dash-icon-btn"
                       onClick={toggleTheme}
                       aria-label="Toggle theme"
                     >
                       {theme === "light" ? "🌙" : "☀️"}
-                      <span className="d-none d-sm-inline ms-1">
-                        {theme === "light" ? "Dark" : "Light"}
-                      </span>
                     </button>
 
-                    <button className="theme-toggle" onClick={handleLogout}>
+                    <button className="dash-logout" onClick={handleLogout}>
                       Logout
                     </button>
                   </div>
                 </div>
               </nav>
 
-              <div className="container pb-5">
+              <div className="container pb-5 dash-page">
                 <Routes>
                   <Route path="/" element={<StudentList />} />
                   <Route path="/add" element={<StudentForm />} />

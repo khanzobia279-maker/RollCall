@@ -2,8 +2,14 @@ const Student = require("../models/Student");
 
 const createStudent = async (req, res) => {
   try {
+    const { firstName, lastName, email } = req.body;
 
-    const student = await Student.create(req.body);
+    const student = await Student.create({
+      firstName,
+      lastName,
+      email,
+      user: req.user.id          // logged-in user ka id
+    });
 
     res.status(201).json({
       message: "Student Added Successfully",
@@ -13,7 +19,9 @@ const createStudent = async (req, res) => {
   } catch (error) {
 
     res.status(400).json({
-      message: error.message
+      message: error.code === 11000
+        ? "You already have a student with this email"
+        : error.message
     });
 
   }
@@ -22,7 +30,8 @@ const createStudent = async (req, res) => {
 const getStudents = async (req, res) => {
   try {
 
-    const students = await Student.find();
+    // Sirf isi user ke students
+    const students = await Student.find({ user: req.user.id });
 
     res.status(200).json({
       message: "All Students",
@@ -41,7 +50,10 @@ const getStudents = async (req, res) => {
 const getStudentById = async (req, res) => {
   try {
 
-    const student = await Student.findById(req.params.id);
+    const student = await Student.findOne({
+      _id: req.params.id,
+      user: req.user.id
+    });
 
     if (!student) {
       return res.status(404).json({
@@ -63,27 +75,34 @@ const getStudentById = async (req, res) => {
 const updateStudent = async (req, res) => {
   try {
 
-    const student = await Student.findByIdAndUpdate(
-      req.params.id,
-      req.body,
+    const { firstName, lastName, email } = req.body; // user field change nahi hone denge
+
+    const student = await Student.findOneAndUpdate(
+      { _id: req.params.id, user: req.user.id },
+      { firstName, lastName, email },
       {
         new: true,
         runValidators: true
       }
     );
+
     if (!student) {
       return res.status(404).json({
         message: "Student Not Found"
       });
     }
+
     res.status(200).json({
       message: "Student Updated Successfully",
       student: student
     });
+
   } catch (error) {
 
     res.status(400).json({
-      message: error.message
+      message: error.code === 11000
+        ? "You already have a student with this email"
+        : error.message
     });
   }
 };
@@ -91,7 +110,10 @@ const updateStudent = async (req, res) => {
 const deleteStudent = async (req, res) => {
   try {
 
-    const student = await Student.findByIdAndDelete(req.params.id);
+    const student = await Student.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user.id
+    });
 
     if (!student) {
       return res.status(404).json({
