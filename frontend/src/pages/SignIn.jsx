@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Auth.css";
 
-const AUTH_URL = "http://localhost:5000/api/auth";
+const AUTH_URL = "https://roll-call-sooty.vercel.app/api/auth";
 
 function SignIn({ onAuth, theme, toggleTheme }) {
   const [form, setForm] = useState({ email: "", password: "" });
